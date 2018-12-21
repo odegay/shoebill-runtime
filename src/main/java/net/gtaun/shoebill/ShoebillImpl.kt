@@ -40,6 +40,7 @@ import java.util.concurrent.ConcurrentLinkedQueue
  * @author Marvin Haschker
  */
 class ShoebillImpl constructor(amxHandles: IntArray) : Shoebill() {
+    private var isRestart: Boolean = false
     override val version: ShoebillVersionImpl =
             ShoebillVersionImpl(this.javaClass.classLoader.getResourceAsStream(VERSION_FILENAME))
     val config: ShoebillConfig = ShoebillConfig(FileInputStream(SHOEBILL_CONFIG_PATH))
@@ -185,6 +186,11 @@ class ShoebillImpl constructor(amxHandles: IntArray) : Shoebill() {
         get() = pluginManager
 
     override fun runOnMainThread(runnable: Runnable) = asyncExecQueue.offer(runnable)
+
+     override fun reload() {
+        //isRestart = true
+        SampNativeFunction.sendRconCommand("gmx")
+    }
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger("Shoebill")

@@ -6,3 +6,7 @@
 /dependency-reduced-pom.xml
 /.idea
 /*.iml
+#Idea files
+.vscode/
+
+
